@@ -8,6 +8,7 @@ const hpp = require('hpp')
 const cors = require('cors')
 const morgan = require('morgan')
 const colors = require('colors')
+const errorMiddleware = require('./middlewares/errorMiddleware')
 
 const connectDB = require('./db/db')
 
@@ -50,6 +51,12 @@ app.use(hpp())
 
 // Enable CORS
 app.use(cors())
+
+
+// use routes
+
+// Error middleware
+app.use(errorMiddleware)
 
 const PORT = process.env.PORT || 5000
 // Run Server
