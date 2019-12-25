@@ -24,8 +24,7 @@ const UserSchema = new mongoose.Schema({
     minlength: 6,
     select: false,
   },
-  resetPasswordToken: String,
-  resetPasswordExpire: Date,
+  links: [{ type: mongoose.Types.ObjectId, ref: 'Link' }],
   createdAt: {
     type: Date,
     default: Date.now,
@@ -46,7 +45,7 @@ UserSchema.pre('save', async function(next) {
 // Sign JWT and return token
 UserSchema.methods.getSignedJwtToken = function() {
   return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRE
+    expiresIn: process.env.JWT_EXPIRE,
   })
 }
 
