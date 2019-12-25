@@ -4,6 +4,7 @@ const mongoSanitize = require('express-mongo-sanitize')
 const helmet = require('helmet')
 const xss = require('xss-clean')
 const rateLimit = require('express-rate-limit')
+const cookieParser = require('cookie-parser')
 const hpp = require('hpp')
 const cors = require('cors')
 const morgan = require('morgan')
@@ -23,6 +24,9 @@ const app = express()
 
 // Body parser
 app.use(express.json())
+
+// Cookie parser
+app.use(cookieParser())
 
 // Dev logging middleware
 if (process.env.NODE_ENV === 'development') {
@@ -51,7 +55,6 @@ app.use(hpp())
 
 // Enable CORS
 app.use(cors())
-
 
 // use routes
 
