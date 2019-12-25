@@ -19,6 +19,10 @@ dotenv.config({ path: './config/config.env' })
 // Connect DB
 connectDB()
 
+// Routes
+const authRoutes = require('./routes/authRoutes')
+
+
 // Init Express
 const app = express()
 
@@ -56,7 +60,9 @@ app.use(hpp())
 // Enable CORS
 app.use(cors())
 
-// use routes
+// Use routes
+app.use('/api/v1/auth', authRoutes)
+
 
 // Error middleware
 app.use(errorMiddleware)

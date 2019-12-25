@@ -1,7 +1,7 @@
-
 const User = require('../models/User')
 const ErrorResponse = require('../utils/errorsResponse')
 const asyncMiddleware = require('../middlewares/asyncMiddleware')
+const tokenResponse = require('../utils/tokenResponse')
 
 // @POST Register user | Public
 // Route: /api/v1/auth/register
@@ -17,8 +17,9 @@ exports.registerUser = asyncMiddleware(async (req, res, next) => {
     name,
     email,
     password,
-    role
+    role,
   })
 
-  tokenResponse(user, 200, res)
+  tokenResponse(user, 201, res)
 })
+
