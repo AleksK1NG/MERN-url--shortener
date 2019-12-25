@@ -23,3 +23,22 @@ exports.registerUser = asyncMiddleware(async (req, res, next) => {
   tokenResponse(user, 201, res)
 })
 
+// @POST Login user | Public
+// Route: /api/v1/auth/register
+exports.loginUser = asyncMiddleware(async (req, res, next) => {
+  const { email, password } = req.body
+
+  // Validate email and password
+  if (!email || !password) return next(new ErrorResponse('Invalid email or password', 400))
+
+  // Check for user exists
+  const user = await User.findOne({ email }).select('+password')
+
+  if (!user) return next(new ErrorResponse('Invalid credentials', 401))
+
+  // Compare passwords
+  const isMatch = await user.matchPassword(password)
+  if (!isMatch) return next(new ErrorResponse('Invalid email or password', 400))
+
+  tokenResponse(user, 200, res)
+})
