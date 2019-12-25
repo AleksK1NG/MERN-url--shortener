@@ -1,6 +1,27 @@
-const express = require('express')
-const router = express.Router()
-const authController = require('../controllers/authController')
-const auth = require('../middlewares/authMiddleware')
+const User = require('../models/User')
+const Link = require('../models/Link')
+const ErrorResponse = require('../utils/errorsResponse')
+const asyncMiddleware = require('../middlewares/asyncMiddleware')
 
-module.exports = router
+
+// @POST Get all bootCamps | Public
+// api/v1/links
+exports.generateLink = asyncMiddleware(async (req, res) => {
+  // res.results comes from reqResMiddleware
+  res.status(200).json(res.results)
+})
+
+// @GET Get all bootCamps | Public
+// api/v1/links
+exports.getAllLinks = asyncMiddleware(async (req, res) => {
+  // res.results comes from reqResMiddleware
+  res.status(200).json(res.results)
+})
+
+
+// @GET Get all bootCamps | Public
+// api/v1/links/:id
+exports.getLinkById = asyncMiddleware(async (req, res) => {
+  // res.results comes from reqResMiddleware
+  res.status(200).json(res.results)
+})

@@ -21,7 +21,7 @@ connectDB()
 
 // Routes
 const authRoutes = require('./routes/authRoutes')
-
+const linkRoutes = require('./routes/linkRoutes')
 
 // Init Express
 const app = express()
@@ -62,7 +62,7 @@ app.use(cors())
 
 // Use routes
 app.use('/api/v1/auth', authRoutes)
-
+app.use('/api/v1/links', linkRoutes)
 
 // Error middleware
 app.use(errorMiddleware)
