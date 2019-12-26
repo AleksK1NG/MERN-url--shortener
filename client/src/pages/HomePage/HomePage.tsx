@@ -1,13 +1,26 @@
-import * as React from 'react'
+import React from 'react'
+import { connect } from 'react-redux'
+import { AppState } from '../../store/rootReducer'
+import { userNameSelector } from '../../store/modules/authModule/authSelectors'
 
-interface IProps {}
+interface IProps {
+  name?: string
+}
 
-const Homepage: React.FC<IProps> = () => {
+const Homepage: React.FC<IProps> = ({ name }) => {
+  console.log(name)
+  debugger
   return (
     <div>
-      <h1 onClick={() => console.log('TS =D')}>Home page =D</h1>
+      <h1>Home page =D</h1>
+      <button onClick={() => console.log('TS =D')}>Ok</button>
     </div>
   )
 }
 
-export default Homepage
+export default connect(
+  (state: AppState, props: IProps) => ({
+    name: userNameSelector(state),
+  }),
+  {},
+)(Homepage)

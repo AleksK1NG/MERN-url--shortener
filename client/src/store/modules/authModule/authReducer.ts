@@ -10,6 +10,7 @@ export interface IAuthState {
   isLoading: boolean
   error: any
   isAuthenticated: boolean
+  name: string
 }
 
 const initialState: IAuthState = {
@@ -17,6 +18,7 @@ const initialState: IAuthState = {
   isLoading: true,
   error: null,
   isAuthenticated: false,
+  name: 'Alex'
 }
 
 interface IAction extends Action {
