@@ -3,15 +3,19 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { ConnectedRouter } from 'connected-react-router'
 import history from './history/history'
+
+import { PersistGate } from 'redux-persist/integration/react'
+import { store, persistor } from './store/index'
 import './index.css'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
-import store from './store'
 
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <App />
+      <PersistGate persistor={persistor} loading={null}>
+        <App />
+      </PersistGate>
     </ConnectedRouter>
   </Provider>,
   document.getElementById('root'),

@@ -3,7 +3,10 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import { routerMiddleware } from 'connected-react-router'
 import history from '../history/history'
 
-import createSagaMiddleware from 'redux-saga'
+import { persistStore } from 'redux-persist'
+
+// import createSagaMiddleware from 'redux-saga'
+
 import rootReducer from './rootReducer'
 // import rootSaga from './rootSaga'
 
@@ -17,4 +20,6 @@ export const store = createStore(rootReducer, enhancer)
 
 // sagaMiddleware.run(rootSaga)
 
-export default store
+export const persistor = persistStore(store)
+
+export default { store, persistor }

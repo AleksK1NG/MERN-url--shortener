@@ -1,18 +1,17 @@
 import React, { Suspense } from 'react'
-import { Route, Switch } from 'react-router-dom'
+import { connect } from 'react-redux'
 import './App.css'
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary'
+import { Route, Switch } from 'react-router-dom'
 
 const Routes = React.lazy(() => import('./routes/routes'))
 
-interface IProps {}
-
-const App: React.FC<IProps> = () => {
+const App = () => {
   return (
     <>
       <Switch>
         <ErrorBoundary>
-          <Suspense fallback={<p>Loading...</p>}>
+          <Suspense fallback={<p>Loading ...</p>}>
             <Route component={Routes} />
           </Suspense>
         </ErrorBoundary>
@@ -21,4 +20,4 @@ const App: React.FC<IProps> = () => {
   )
 }
 
-export default App
+export default connect((state) => ({}), null)(App)
