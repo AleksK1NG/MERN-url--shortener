@@ -1,21 +1,23 @@
 import React, { useCallback } from 'react'
 import { useForm } from '../../hooks/useForm'
-import { registerUserRequest } from '../../store/modules/authModule/authActions'
+import { loginUserRequest, registerUserRequest } from '../../store/modules/authModule/authActions'
+import { connect } from 'react-redux'
 
 const initialState = { email: '', password: '' }
 
-const AuthPage = ({ registerUserRequest }) => {
+const AuthPage = ({ registerUserRequest, loginUserRequest }) => {
   const [values, handleChange, setValues] = useForm(initialState)
 
   const handleRegister = useCallback(() => {
     registerUserRequest(values)
     setValues(initialState)
-  }, values)
+  }, [values])
 
   const handleLogin = useCallback(() => {
-    registerUserRequest(values)
+    console.log(' values', values)
+    loginUserRequest(values)
     setValues(initialState)
-  }, values)
+  }, [values])
 
   return (
     <div className="row">
@@ -37,10 +39,10 @@ const AuthPage = ({ registerUserRequest }) => {
             </div>
           </div>
           <div className="card-action">
-            <button className="waves-effect waves-light btn m-right" onClick={handleRegister}>
+            <button className="waves-effect waves-light btn m-right" onClick={handleLogin}>
               <i className="material-icons right">account_box</i>Login
             </button>
-            <button className="waves-effect waves-light btn" onClick={handleLogin}>
+            <button className="waves-effect waves-light btn" onClick={handleRegister}>
               <i className="material-icons right">person</i>Register
             </button>
           </div>
@@ -50,4 +52,4 @@ const AuthPage = ({ registerUserRequest }) => {
   )
 }
 
-export default connect((state) => ({}), { registerUserRequest })(AuthPage)
+export default connect((state) => ({}), { registerUserRequest, loginUserRequest })(AuthPage)
