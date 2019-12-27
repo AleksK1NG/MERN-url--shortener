@@ -19,5 +19,5 @@ export default connect(
   }),
   null,
   null,
-  { pure: false },
+  { pure: false, areStatesEqual: (next, prev) => next.auth === prev.auth },
 )(ProtectedRoute)
