@@ -1,7 +1,8 @@
 import { authTypes} from './authTypes'
 
-export const registerUserRequest = () => ({
+export const registerUserRequest = (userData) => ({
   type: authTypes.REGISTER_USER_REQUEST,
+  payload: { userData },
 })
 
 export const registerUserSuccess = (userData) => ({
@@ -14,4 +15,5 @@ export const registerUserError = (error) => ({
   payload: { error },
 })
 
-// export default { registerUserError, registerUserRequest, registerUserSuccess }
+
+// export const authActions = { registerUserError, registerUserRequest, registerUserSuccess }
