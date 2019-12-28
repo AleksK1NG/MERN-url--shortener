@@ -10,7 +10,7 @@ const HomePage = ({ name, registerUserRequest }) => {
     <div>
       <h1>HomePage</h1>
       <button onClick={() => registerUserRequest(1)}>Ok</button>
-      <a className="btn-floating btn-large waves-effect waves-light red"><i className="material-icons">add</i></a>
+      <a href="#" className="btn-floating btn-large waves-effect waves-light red"><i className="material-icons">add</i></a>
     </div>
   )
 }

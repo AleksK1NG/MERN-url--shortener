@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 import { connectRouter } from 'connected-react-router'
 import { authReducer } from './modules/authModule/authReducer'
+import { linksReducer } from './modules/linksModule/linksReducer'
 
 import history from '../history/history'
 
@@ -15,6 +16,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   auth: authReducer,
+  links: linksReducer,
   router: connectRouter(history),
 })
 

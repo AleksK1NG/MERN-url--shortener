@@ -16,13 +16,13 @@ const AuthPage = ({ registerUserRequest, loginUserRequest, isAuthLoading }) => {
   const handleRegister = useCallback(() => {
     registerUserRequest(values)
     setValues(initialState)
-  }, [values])
+  }, [values, registerUserRequest, setValues])
 
   const handleLogin = useCallback(() => {
     console.log(' values', values)
     loginUserRequest(values)
     setValues(initialState)
-  }, [values])
+  }, [values, loginUserRequest, setValues])
 
   return (
     <div className="row">
