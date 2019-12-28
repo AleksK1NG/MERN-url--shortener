@@ -11,7 +11,7 @@ const Routes = React.lazy(() => import('./routes/routes'))
 const App = ({ loadUserRequest }) => {
   useEffect(() => {
     loadUserRequest()
-  }, [])
+  }, [loadUserRequest])
   return (
     <>
       <div className="container">

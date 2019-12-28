@@ -1,6 +1,6 @@
 import { authTypes } from './authTypes'
 import { ofType } from 'redux-observable'
-import { map, switchMap, tap, catchError } from 'rxjs/operators'
+import { map, switchMap, tap, catchError, filter } from 'rxjs/operators'
 import { ajax } from 'rxjs/ajax'
 import { loginUserError, loginUserSuccess, registerUserError, registerUserSuccess, loadUserSuccess, loadUserError } from './authActions'
 import { of } from 'rxjs'
