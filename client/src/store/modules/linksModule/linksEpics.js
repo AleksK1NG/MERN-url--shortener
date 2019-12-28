@@ -6,7 +6,7 @@ import { getTokenFromLocalStorage } from '../../../utils/getTokenFromLocalStorag
 import { toast } from 'react-toastify'
 import { rejectErrorMessage } from '../../../utils/rejectErrorMessage'
 import { linksTypes } from './linksTypes'
-import { createLinkError, createLinkSuccess } from './linksActions'
+import { createLinkError, createLinkSuccess, getAllLinksError, getAllLinksSuccess } from './linksActions'
 
 const headers = {
   'Content-Type': 'application/json',
@@ -20,12 +20,10 @@ export const createLinkEpic = (action$, state) => {
       return ajax.post('http://localhost:5000/api/v1/links/generate', action.payload.linkInput, headers).pipe(
         tap((data) => console.log(data)),
         map(({ response, request }) => {
-          debugger
           toast.success('Link successfully created ! =D')
           return createLinkSuccess(response.data)
         }),
         catchError((err) => {
-          debugger
           toast.error(rejectErrorMessage(err))
           return of(createLinkError(rejectErrorMessage(err)))
         }),
@@ -34,5 +32,21 @@ export const createLinkEpic = (action$, state) => {
   )
 }
 
+export const getAllLinksEpic = (action$, state) => {
+  return action$.pipe(
+    ofType(linksTypes.GET_ALL_LINKS_REQUEST),
+    switchMap((action) => {
+      return ajax.getJSON('http://localhost:5000/api/v1/links', headers).pipe(
+        tap((data) => console.log(data)),
+        map(({ response, request }) => {
+          return getAllLinksSuccess(response.data)
+        }),
+        catchError((err) => {
+          return of(getAllLinksError(rejectErrorMessage(err)))
+        }),
+      )
+    }),
+  )
+}
 
-export default [createLinkEpic]
+export default [createLinkEpic, getAllLinksEpic]
