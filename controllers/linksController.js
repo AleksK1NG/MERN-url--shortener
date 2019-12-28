@@ -31,8 +31,11 @@ exports.generateLink = asyncMiddleware(async (req, res, next) => {
 // api/v1/links
 exports.getAllLinks = asyncMiddleware(async (req, res) => {
   const { user } = req
+  console.log('getAllLinks user => ', user)
 
-  const links = await Link.find({ owner: user._id })
+  const links = await Link.find()
+
+  console.log('getAllLinks links => ', links)
 
   res.status(200).json({ data: links })
 })

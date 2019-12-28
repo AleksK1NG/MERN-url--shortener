@@ -7,6 +7,7 @@ import { of } from 'rxjs'
 import { getTokenFromLocalStorage } from '../../../utils/getTokenFromLocalStorage'
 import { toast } from 'react-toastify'
 import { rejectErrorMessage } from '../../../utils/rejectErrorMessage'
+import history from '../../../history/history'
 
 const headers = {
   'Content-Type': 'application/json',
@@ -42,6 +43,7 @@ const loginUserEpic = (action$, state) => {
           if (response.token) {
             localStorage.setItem('mern-dev', response.token)
           }
+          history.push('/')
           toast.success('You are successfully logged in ! =D')
           return loginUserSuccess(response.data)
         }),

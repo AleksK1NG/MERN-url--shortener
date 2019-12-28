@@ -15,14 +15,13 @@ export const createLinkError = (error) => ({
   payload: { error },
 })
 
-export const getAllLinksRequest = (linkInput) => ({
+export const getAllLinksRequest = () => ({
   type: linksTypes.GET_ALL_LINKS_REQUEST,
-  payload: { linkInput },
 })
 
-export const getAllLinksSuccess = (linkData) => ({
+export const getAllLinksSuccess = (data) => ({
   type: linksTypes.GET_ALL_LINKS_SUCCESS,
-  payload: { linkData },
+  payload: { data },
 })
 
 export const getAllLinksError = (error) => ({
