@@ -5,7 +5,7 @@ import { ajax } from 'rxjs/ajax'
 import { loginUserError, loginUserSuccess, registerUserError, registerUserSuccess, loadUserSuccess, loadUserError } from './authActions'
 import { of } from 'rxjs'
 import { getTokenFromLocalStorage } from '../../../utils/getTokenFromLocalStorage'
-import { toast } from 'react-toastify';
+import { toast } from 'react-toastify'
 import { rejectErrorMessage } from '../../../utils/rejectErrorMessage'
 
 const headers = {
@@ -20,12 +20,13 @@ const registerUserEpic = (action$, state) => {
       return ajax.post('http://localhost:5000/api/v1/auth/register', action.payload.registerData, { 'Content-Type': 'application/json' }).pipe(
         tap((data) => console.log(data)),
         map(({ response, request }) => {
-          console.log(response)
-          debugger
           toast.success('You are registered ! =D')
           return registerUserSuccess(response)
         }),
-        catchError((err) => of(registerUserError(err))),
+        catchError((err) => {
+          toast.error(rejectErrorMessage(err))
+          return of(registerUserError(rejectErrorMessage(err)))
+        }),
       )
     }),
   )
@@ -45,8 +46,8 @@ const loginUserEpic = (action$, state) => {
           return loginUserSuccess(response.data)
         }),
         catchError((err) => {
-          toast.error(rejectErrorMessage(err));
-          return of(loginUserError(err.response.error))
+          toast.error(rejectErrorMessage(err))
+          return of(loginUserError(rejectErrorMessage(err)))
         }),
       )
     }),
@@ -62,7 +63,7 @@ export const loadUserEpic = (action$, state) => {
         map((data) => {
           return loadUserSuccess(data)
         }),
-        catchError((err) => of(loadUserError(err.response.error))),
+        catchError((err) => of(loadUserError(rejectErrorMessage(err)))),
       )
     }),
   )
