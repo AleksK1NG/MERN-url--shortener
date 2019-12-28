@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useForm } from '../../hooks/useForm'
 import { loginUserRequest, registerUserRequest } from '../../store/modules/authModule/authActions'
 import { connect } from 'react-redux'
@@ -8,6 +8,10 @@ const initialState = { email: '', password: '' }
 
 const AuthPage = ({ registerUserRequest, loginUserRequest, isAuthLoading }) => {
   const [values, handleChange, setValues] = useForm(initialState)
+
+  useEffect(() => {
+    window.M.updateTextFields()
+  }, [])
 
   const handleRegister = useCallback(() => {
     registerUserRequest(values)

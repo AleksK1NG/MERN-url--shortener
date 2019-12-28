@@ -1,36 +1,16 @@
 import { authTypes } from './authTypes'
 import { ofType } from 'redux-observable'
-import { mergeMap, map, switchMap, tap, catchError } from 'rxjs/operators'
+import { map, switchMap, tap, catchError } from 'rxjs/operators'
 import { ajax } from 'rxjs/ajax'
-import { loginUserError, loginUserSuccess, registerUserError, registerUserSuccess, authActions, loadUserSuccess } from './authActions'
-import { from, of } from 'rxjs'
-
-const TEST_URL = 'https://jsonplaceholder.typicode.com/users/'
-
-const getTokenFromLocalStorage = (tokenName) => {
-  const token = localStorage.getItem(tokenName)
-  return token ? token : ''
-}
+import { loginUserError, loginUserSuccess, registerUserError, registerUserSuccess, loadUserSuccess, loadUserError } from './authActions'
+import { of } from 'rxjs'
+import { getTokenFromLocalStorage } from '../../../utils/getTokenFromLocalStorage'
+import { toast } from 'react-toastify';
+import { rejectErrorMessage } from '../../../utils/rejectErrorMessage'
 
 const headers = {
   'Content-Type': 'application/json',
   Authorization: `Bearer ${getTokenFromLocalStorage('mern-dev')}`,
-}
-
-const jsonFetchEpic = (action$, state) => {
-  return action$.pipe(
-    ofType(authTypes.REGISTER_USER_REQUEST),
-    mergeMap((action) => {
-      debugger
-      return ajax.getJSON(`${TEST_URL}/${action.payload.userData}`).pipe(
-        tap((data) => console.log(data)),
-        map((response) => {
-          return registerUserSuccess(response)
-        }),
-        catchError((err) => of(registerUserError(err))),
-      )
-    }),
-  )
 }
 
 const registerUserEpic = (action$, state) => {
@@ -42,6 +22,7 @@ const registerUserEpic = (action$, state) => {
         map(({ response, request }) => {
           console.log(response)
           debugger
+          toast.success('You are registered ! =D')
           return registerUserSuccess(response)
         }),
         catchError((err) => of(registerUserError(err))),
@@ -60,9 +41,13 @@ const loginUserEpic = (action$, state) => {
           if (response.token) {
             localStorage.setItem('mern-dev', response.token)
           }
+          toast.success('You are successfully logged in ! =D')
           return loginUserSuccess(response.data)
         }),
-        catchError((err) => of(loginUserError(err))),
+        catchError((err) => {
+          toast.error(rejectErrorMessage(err));
+          return of(loginUserError(err.response.error))
+        }),
       )
     }),
   )
@@ -75,9 +60,9 @@ export const loadUserEpic = (action$, state) => {
       return ajax.getJSON(`http://localhost:5000/api/v1/auth/me`, headers).pipe(
         tap((data) => console.log(data)),
         map((data) => {
-          return authActions.loadUserSuccess(data)
+          return loadUserSuccess(data)
         }),
-        catchError((err) => of(authActions.loadUserError(err))),
+        catchError((err) => of(loadUserError(err.response.error))),
       )
     }),
   )

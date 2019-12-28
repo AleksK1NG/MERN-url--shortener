@@ -4,6 +4,7 @@ import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary'
 import { Route, Switch } from 'react-router-dom'
 import 'materialize-css'
 import { loadUserRequest } from './store/modules/authModule/authActions'
+import { ToastContainer, toast } from 'react-toastify'
 
 const Routes = React.lazy(() => import('./routes/routes'))
 
@@ -22,6 +23,7 @@ const App = ({ loadUserRequest }) => {
           </ErrorBoundary>
         </Switch>
       </div>
+      <ToastContainer position={toast.POSITION.TOP_CENTER} />
     </>
   )
 }
