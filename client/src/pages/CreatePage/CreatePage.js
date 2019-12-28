@@ -2,15 +2,16 @@ import React, { useEffect } from 'react'
 import { useForm } from '../../hooks/useForm'
 import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { createLinkRequest } from '../../store/modules/linksModule/linksActions'
+import { createLinkRequest, getAllLinksRequest } from '../../store/modules/linksModule/linksActions'
 
 const initialState = { from: '' }
 
-const CreatePage = ({ createLinkRequest }) => {
+const CreatePage = ({ createLinkRequest, getAllLinksRequest }) => {
   const [values, handleChange, setValues] = useForm(initialState)
   const history = useHistory()
 
   useEffect(() => {
+    getAllLinksRequest()
     window.M.updateTextFields()
   }, [])
 
@@ -32,4 +33,4 @@ const CreatePage = ({ createLinkRequest }) => {
   )
 }
 
-export default connect((state) => ({}), { createLinkRequest })(CreatePage)
+export default connect((state) => ({}), { createLinkRequest, getAllLinksRequest })(CreatePage)

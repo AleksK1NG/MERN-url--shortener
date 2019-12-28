@@ -37,11 +37,12 @@ export const getAllLinksEpic = (action$, state) => {
     ofType(linksTypes.GET_ALL_LINKS_REQUEST),
     switchMap((action) => {
       return ajax.getJSON('http://localhost:5000/api/v1/links', headers).pipe(
-        tap((data) => console.log(data)),
-        map(({ response, request }) => {
-          return getAllLinksSuccess(response.data)
+        tap((logData) => console.log(logData.data)),
+        map(({ data }) => {
+          return getAllLinksSuccess(data)
         }),
         catchError((err) => {
+          debugger
           return of(getAllLinksError(rejectErrorMessage(err)))
         }),
       )
