@@ -30,4 +30,28 @@ export const loginUserError = (error) => ({
   payload: { error },
 })
 
-// export const authActions = { registerUserError, registerUserRequest, registerUserSuccess }
+export const loadUserRequest = () => ({
+  type: authTypes.LOAD_USER_REQUEST,
+})
+
+export const loadUserSuccess = (userData) => ({
+  type: authTypes.LOAD_USER_SUCCESS,
+  payload: { userData },
+})
+
+export const loadUserError = (error) => ({
+  type: authTypes.LOAD_USER_ERROR,
+  payload: { error },
+})
+
+export const authActions = {
+  registerUserError,
+  registerUserRequest,
+  registerUserSuccess,
+  loadUserError,
+  loadUserSuccess,
+  loadUserRequest,
+  loginUserError,
+  loginUserRequest,
+  loginUserSuccess,
+}
