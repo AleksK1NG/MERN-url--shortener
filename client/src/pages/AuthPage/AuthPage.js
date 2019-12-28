@@ -2,10 +2,11 @@ import React, { useCallback } from 'react'
 import { useForm } from '../../hooks/useForm'
 import { loginUserRequest, registerUserRequest } from '../../store/modules/authModule/authActions'
 import { connect } from 'react-redux'
+import { isAuthLoadingSelector } from '../../store/modules/authModule/authSelectors'
 
 const initialState = { email: '', password: '' }
 
-const AuthPage = ({ registerUserRequest, loginUserRequest }) => {
+const AuthPage = ({ registerUserRequest, loginUserRequest, isAuthLoading }) => {
   const [values, handleChange, setValues] = useForm(initialState)
 
   const handleRegister = useCallback(() => {
@@ -39,10 +40,10 @@ const AuthPage = ({ registerUserRequest, loginUserRequest }) => {
             </div>
           </div>
           <div className="card-action">
-            <button className="waves-effect waves-light btn m-right" onClick={handleLogin}>
+            <button className="waves-effect waves-light btn m-right" onClick={handleLogin} disabled={isAuthLoading}>
               <i className="material-icons right">account_box</i>Login
             </button>
-            <button className="waves-effect waves-light btn" onClick={handleRegister}>
+            <button className="waves-effect waves-light btn" onClick={handleRegister} disabled={isAuthLoading}>
               <i className="material-icons right">person</i>Register
             </button>
           </div>
@@ -52,4 +53,9 @@ const AuthPage = ({ registerUserRequest, loginUserRequest }) => {
   )
 }
 
-export default connect((state) => ({}), { registerUserRequest, loginUserRequest })(AuthPage)
+export default connect(
+  (state) => ({
+    isAuthLoading: isAuthLoadingSelector(state),
+  }),
+  { registerUserRequest, loginUserRequest },
+)(AuthPage)
