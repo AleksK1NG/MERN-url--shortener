@@ -11,7 +11,7 @@ const CreatePage = ({ createLinkRequest, getAllLinksRequest }) => {
   useEffect(() => {
     getAllLinksRequest()
     window.M.updateTextFields()
-  }, [])
+  }, [getAllLinksRequest])
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter' && e.target.value.trim() !== '') {

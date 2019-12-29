@@ -1,16 +1,11 @@
 import { createSelector } from 'reselect'
-import { debounce } from 'rxjs/operators'
 
 // Selectors
 
 export const linksStateSelector = (state) => state.links
 
 export const allLinksSelector = createSelector(linksStateSelector, (state) => state.links)
-// export const singleLinkSelector = (linkId) =>
-//   createSelector(linksStateSelector, (state) => {
-//     debugger
-//     return state.links.find((link) => link._id === linkId)
-//   })
+
 export const linksIsLoadingSelector = createSelector(linksStateSelector, (state) => state.isLoading)
 
 export const getLinkByIdSelector = (state, linkID) => {

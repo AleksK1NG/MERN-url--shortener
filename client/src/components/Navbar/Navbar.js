@@ -11,7 +11,7 @@ const Navbar = ({ isAuthenticated, logoutUser }) => {
     logoutUser()
     localStorage.removeItem('mern-dev')
     history.push('/')
-  }, [logoutUser])
+  }, [logoutUser, history])
 
   return (
     <nav>
