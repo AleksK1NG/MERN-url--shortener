@@ -22,7 +22,7 @@ export const createLinkEpic = (action$, state) => {
         tap((data) => console.log(data)),
         map(({ response, request }) => {
           toast.success('Link successfully created ! =D')
-          history.push('/')
+          history.push(`/detail/${response.data._id}`)
           return createLinkSuccess(response.data)
         }),
         catchError((err) => {
