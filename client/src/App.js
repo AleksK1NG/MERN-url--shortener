@@ -5,6 +5,7 @@ import { Route, Switch } from 'react-router-dom'
 import 'materialize-css'
 import { loadUserRequest } from './store/modules/authModule/authActions'
 import { ToastContainer, toast } from 'react-toastify'
+import Navbar from './components/Navbar/Navbar'
 
 const Routes = React.lazy(() => import('./routes/routes'))
 
@@ -14,6 +15,7 @@ const App = ({ loadUserRequest }) => {
   }, [loadUserRequest])
   return (
     <>
+      <Navbar/>
       <div className="container">
         <Switch>
           <ErrorBoundary>

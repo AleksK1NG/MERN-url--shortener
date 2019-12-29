@@ -1,6 +1,6 @@
 import { authTypes } from './authTypes'
 import { ofType } from 'redux-observable'
-import { map, switchMap, tap, catchError, filter } from 'rxjs/operators'
+import { map, switchMap, tap, catchError } from 'rxjs/operators'
 import { ajax } from 'rxjs/ajax'
 import { loginUserError, loginUserSuccess, registerUserError, registerUserSuccess, loadUserSuccess, loadUserError } from './authActions'
 import { of } from 'rxjs'
@@ -22,6 +22,7 @@ const registerUserEpic = (action$, state) => {
         tap((data) => console.log(data)),
         map(({ response, request }) => {
           toast.success('You are registered ! =D')
+          history.push('/')
           return registerUserSuccess(response)
         }),
         catchError((err) => {
@@ -43,8 +44,8 @@ const loginUserEpic = (action$, state) => {
           if (response.token) {
             localStorage.setItem('mern-dev', response.token)
           }
-          history.push('/')
           toast.success('You are successfully logged in ! =D')
+          history.push('/')
           return loginUserSuccess(response.data)
         }),
         catchError((err) => {

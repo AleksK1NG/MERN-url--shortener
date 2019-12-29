@@ -38,6 +38,13 @@ export const authReducer = (state = initialState, action) =>
         draft.isAuthenticated = false
         return
 
+      case authTypes.LOGOUT_USER:
+        draft.user = null
+        draft.isLoading = false
+        draft.error = null
+        draft.isAuthenticated = false
+        return
+
       default:
         return state
     }
