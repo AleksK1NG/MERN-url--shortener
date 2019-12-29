@@ -44,7 +44,6 @@ export const getAllLinksEpic = (action$, state) => {
           return getAllLinksSuccess(data)
         }),
         catchError((err) => {
-          debugger
           return of(getAllLinksError(rejectErrorMessage(err)))
         }),
       )

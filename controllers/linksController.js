@@ -24,6 +24,7 @@ exports.generateLink = asyncMiddleware(async (req, res, next) => {
     owner: req.user._id,
   })
 
+  console.log('link => ', link)
   res.status(201).json({ data: link })
 })
 
