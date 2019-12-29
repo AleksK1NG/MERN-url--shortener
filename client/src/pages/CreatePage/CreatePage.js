@@ -23,7 +23,7 @@ const CreatePage = ({ createLinkRequest, getAllLinksRequest }) => {
 
   return (
     <div className="row">
-      <div className="col 8 offset-s2 p-top">
+      <div className="col 10 offset-s2 p-top">
         <div className="input-field">
           <input id="from" type="text" className="validate" name="from" value={values.from} onChange={handleChange} onKeyPress={handleKeyPress} />
           <label htmlFor="from">Enter your link</label>
