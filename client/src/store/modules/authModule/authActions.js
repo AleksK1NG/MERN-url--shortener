@@ -47,15 +47,3 @@ export const loadUserError = (error) => ({
 export const logoutUser = () => ({
   type: authTypes.LOGOUT_USER,
 })
-
-export const authActions = {
-  registerUserError,
-  registerUserRequest,
-  registerUserSuccess,
-  loadUserError,
-  loadUserSuccess,
-  loadUserRequest,
-  loginUserError,
-  loginUserRequest,
-  loginUserSuccess,
-}
