@@ -1,5 +1,5 @@
 import { ofType } from 'redux-observable'
-import { map, switchMap, tap, catchError, filter } from 'rxjs/operators'
+import { map, switchMap, tap, catchError } from 'rxjs/operators'
 import { ajax } from 'rxjs/ajax'
 import { of } from 'rxjs'
 import { getTokenFromLocalStorage } from '../../../utils/getTokenFromLocalStorage'
@@ -7,6 +7,7 @@ import { toast } from 'react-toastify'
 import { rejectErrorMessage } from '../../../utils/rejectErrorMessage'
 import { linksTypes } from './linksTypes'
 import { createLinkError, createLinkSuccess, getAllLinksError, getAllLinksSuccess } from './linksActions'
+import history from '../../../history/history'
 
 const headers = {
   'Content-Type': 'application/json',
@@ -21,6 +22,7 @@ export const createLinkEpic = (action$, state) => {
         tap((data) => console.log(data)),
         map(({ response, request }) => {
           toast.success('Link successfully created ! =D')
+          history.push('/')
           return createLinkSuccess(response.data)
         }),
         catchError((err) => {

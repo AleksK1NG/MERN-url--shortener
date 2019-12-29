@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { useForm } from '../../hooks/useForm'
-import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { createLinkRequest, getAllLinksRequest } from '../../store/modules/linksModule/linksActions'
 
@@ -8,17 +7,18 @@ const initialState = { from: '' }
 
 const CreatePage = ({ createLinkRequest, getAllLinksRequest }) => {
   const [values, handleChange, setValues] = useForm(initialState)
-  const history = useHistory()
 
   useEffect(() => {
     getAllLinksRequest()
     window.M.updateTextFields()
   }, [])
 
-  const handleKeyPress = () => {
-    console.log('implement', values)
-    createLinkRequest(values)
-    setValues(initialState)
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter' && e.target.value.trim() !== '') {
+      console.log('handleKeyPress => ', values)
+      createLinkRequest(values)
+      setValues(initialState)
+    }
   }
 
   return (

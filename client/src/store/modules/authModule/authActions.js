@@ -44,6 +44,10 @@ export const loadUserError = (error) => ({
   payload: { error },
 })
 
+export const logoutUser = () => ({
+  type: authTypes.LOGOUT_USER,
+})
+
 export const authActions = {
   registerUserError,
   registerUserRequest,
