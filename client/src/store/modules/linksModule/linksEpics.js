@@ -6,7 +6,7 @@ import { getTokenFromLocalStorage } from '../../../utils/getTokenFromLocalStorag
 import { toast } from 'react-toastify'
 import { rejectErrorMessage } from '../../../utils/rejectErrorMessage'
 import { linksTypes } from './linksTypes'
-import { createLinkError, createLinkSuccess, getAllLinksError, getAllLinksSuccess } from './linksActions'
+import { createLinkError, createLinkSuccess, getAllLinksError, getAllLinksSuccess, getLinkByIdError, getLinkByIdSuccess } from './linksActions'
 import history from '../../../history/history'
 
 const headers = {
@@ -51,4 +51,21 @@ export const getAllLinksEpic = (action$, state) => {
   )
 }
 
-export default [createLinkEpic, getAllLinksEpic]
+export const getLinkByIdEpic = (action$, state) => {
+  return action$.pipe(
+    ofType(linksTypes.GET_LINK_BY_ID_REQUEST),
+    switchMap(({ payload }) => {
+      return ajax.getJSON(`http://localhost:5000/api/v1/links/${payload.linkId}`, headers).pipe(
+        tap((logData) => console.log(logData.data)),
+        map(({ data }) => {
+          return getLinkByIdSuccess(data)
+        }),
+        catchError((err) => {
+          return of(getLinkByIdError(rejectErrorMessage(err)))
+        }),
+      )
+    }),
+  )
+}
+
+export default [createLinkEpic, getAllLinksEpic, getLinkByIdEpic]

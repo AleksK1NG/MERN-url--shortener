@@ -1,23 +1,30 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { allLinksSelector, linksIsLoadingSelector } from '../../store/modules/linksModule/linksSelectors'
-import { getAllLinksRequest } from '../../store/modules/linksModule/linksActions'
+import { allLinksSelector, linksIsLoadingSelector, singleLinkSelector } from '../../store/modules/linksModule/linksSelectors'
+import { getLinkByIdRequest } from '../../store/modules/linksModule/linksActions'
 import Loader from '../../components/Loader/Loader'
+import LinkCard from '../../components/LinkCard/LinkCard'
+import { useParams } from 'react-router-dom'
 
-const DetailPage = ({ linksIsLoading, getAllLinksRequest, links }) => {
+const DetailPage = ({ linksIsLoading, link }) => {
+  const params = useParams()
+
   useEffect(() => {
-    getAllLinksRequest()
-  }, [getAllLinksRequest])
+    if (params.id) {
+      getLinkByIdRequest()
+    }
+  }, [getLinkByIdRequest])
 
-  if (links.length === 0 || linksIsLoading) return <Loader />
+  if (linksIsLoading || !link) return <Loader />
 
-  return <div>DetailPage</div>
+  return <>{!linksIsLoading && link && <LinkCard link={link} />}</>
 }
 
 export default connect(
-  (state) => ({
+  (state, props) => ({
     linksIsLoading: linksIsLoadingSelector(state),
-    links: allLinksSelector(state),
+    // links: allLinksSelector(state),
+    link: singleLinkSelector(state),
   }),
-  { getAllLinksRequest },
+  { getLinkByIdRequest },
 )(DetailPage)
