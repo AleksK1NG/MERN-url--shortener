@@ -13,6 +13,7 @@ export const linksReducer = (state = initialState, action) =>
     const { type, payload } = action
 
     switch (type) {
+      case linksTypes.GET_LINK_BY_ID_REQUEST:
       case linksTypes.CREATE_LINK_REQUEST:
       case linksTypes.GET_ALL_LINKS_REQUEST:
         draft.isLoading = true
@@ -26,14 +27,20 @@ export const linksReducer = (state = initialState, action) =>
 
       case linksTypes.CREATE_LINK_ERROR:
       case linksTypes.GET_ALL_LINKS_ERROR:
+      case linksTypes.GET_LINK_BY_ID_ERROR:
         draft.link = null
         draft.isLoading = false
         draft.error = payload.error
         return
 
       case linksTypes.GET_ALL_LINKS_SUCCESS:
-        // draft.links = draft.links.concat(payload.data)
         draft.links.push(...payload.data)
+        draft.isLoading = false
+        draft.error = null
+        return
+
+      case linksTypes.GET_LINK_BY_ID_SUCCESS:
+        draft.link = payload.linkData
         draft.isLoading = false
         draft.error = null
         return
