@@ -19,14 +19,16 @@ const LinksList = ({ links }) => {
         {links &&
           links.map((link, index) => {
             return (
-              <tr key={link._id}>
-                <td>{index + 1}</td>
-                <td>{link.from}</td>
-                <td>{link.to}</td>
-                <td>
-                  <Link to={`/detail/${link._id}`}>Open</Link>
-                </td>
-              </tr>
+              <React.Fragment key={link._id}>
+                <tr >
+                  <td>{index + 1}</td>
+                  <td>{link.from}</td>
+                  <td>{link.to}</td>
+                  <td>
+                    <Link to={`/detail/${link._id}`}>Open</Link>
+                  </td>
+                </tr>
+              </React.Fragment>
             )
           })}
       </tbody>
