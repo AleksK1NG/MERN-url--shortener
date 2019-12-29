@@ -29,10 +29,12 @@ export const getAllLinksError = (error) => ({
   payload: { error },
 })
 
-export const getLinkByIdRequest = (linkId) => ({
-  type: linksTypes.GET_LINK_BY_ID_REQUEST,
-  payload: { linkId },
-})
+export const getLinkByIdRequest = (linkId) => {
+  return {
+    type: linksTypes.GET_LINK_BY_ID_REQUEST,
+    payload: { linkId },
+  }
+}
 
 export const getLinkByIdSuccess = (linkData) => ({
   type: linksTypes.GET_LINK_BY_ID_SUCCESS,

@@ -44,8 +44,9 @@ exports.getAllLinks = asyncMiddleware(async (req, res) => {
 // @GET Get all bootCamps | Public
 // api/v1/links/:id
 exports.getLinkById = asyncMiddleware(async (req, res, next) => {
+  console.log('getLinkById =>   ', req.params.id)
   const link = await Link.findById(req.params.id)
   if (!link) return next(new ErrorResponse('Link not found', 400))
-
+  console.log('getLinkById link => ', link)
   res.status(200).json({ data: link })
 })
