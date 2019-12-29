@@ -36,7 +36,7 @@ const Navbar = ({ isAuthenticated, logoutUser }) => {
             </li>
           ) : (
             <li>
-              <a href="/detail/123" onClick={logoutHandler}>
+              <a href="/" onClick={logoutHandler}>
                 Login
               </a>
             </li>

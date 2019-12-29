@@ -6,7 +6,9 @@ import Loader from '../../components/Loader/Loader'
 import LinksList from '../../components/LinksList/LinksList'
 
 const LinksPage = ({ allLinks, linksIsLoading, getAllLinksRequest }) => {
-  useEffect(() => getAllLinksRequest(), [getAllLinksRequest])
+  useEffect(() => {
+    getAllLinksRequest()
+  }, [getAllLinksRequest])
 
   if (linksIsLoading || !allLinks) return <Loader />
   return <>{allLinks && <LinksList links={allLinks} />}</>

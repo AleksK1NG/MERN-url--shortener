@@ -22,7 +22,7 @@ const registerUserEpic = (action$, state) => {
         tap((data) => console.log(data)),
         map(({ response, request }) => {
           toast.success('You are registered ! =D')
-          history.push('/')
+          history.push('/links')
           return registerUserSuccess(response)
         }),
         catchError((err) => {
@@ -45,7 +45,7 @@ const loginUserEpic = (action$, state) => {
             localStorage.setItem('mern-dev', response.token)
           }
           toast.success('You are successfully logged in ! =D')
-          history.push('/')
+          history.push('/links')
           return loginUserSuccess(response.data)
         }),
         catchError((err) => {

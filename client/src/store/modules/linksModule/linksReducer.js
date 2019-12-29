@@ -34,7 +34,7 @@ export const linksReducer = (state = initialState, action) =>
         return
 
       case linksTypes.GET_ALL_LINKS_SUCCESS:
-        draft.links.push(...payload.data)
+        draft.links = payload.data
         draft.isLoading = false
         draft.error = null
         return
